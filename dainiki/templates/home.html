@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dainiki</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    <div class="control-bar fine-edge">
+        <div class="time">
+        </div>
+        <div class="lang-select">
+            <label for="lang">Lang:</label>
+            <select name="lang" id="lang">
+                <option value="1">ENG</option>
+                <option value="2">NEP</option>
+            </select>
+        </div>
+
+    </div>
+    <div class="header fine-edge">
+        <a href="" class="brand">GALAXY</a>
+        <nav>
+            <a href="#" class="active">Home</a>
+            <a href="#">International</a>
+            <a href="#">Sports</a>
+            <a href="#">Politics</a>
+            <a href="#">Blog</a>
+        </nav>
+        <div class="menu-icon" onclick="show_nav()">
+            <div class="bar bar-1"></div>
+            <div class="bar bar-2"></div>
+            <div class="bar bar-3"></div>
+        </div>
+    </div>
+    {% block cover %}
+    <section class="front-news fine-edge">
+        <div class="frontline">
+            <div class="news-title">
+                <p>"Messi wins his 8th Balon D'or"</p>
+            </div>
+            <div class="news-desc">
+                <p>By Himal Gole</p>
+                <p>2023-03-23</p>
+            </div>
+            <div class="cover-photo"><img src="{% static 'photos/front.jpg' %}" alt=""></div>
+            <div class="news-body">
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae, deleniti mollitia? Asperiores
+                    expedita eligendi recusandae corporis. Tempore, quas! Facere modi debitis vitae. A molestiae tempora
+                    illo. Ex quo architecto assumenda!
+                    Sunt harum mollitia dolor officia, quasi aperiam alias cupiditate aliquam incidunt at explicabo eius
+                    repudiandae perspiciatis dicta maxime enim inventore animi! Eveniet, veniam alias itaque ipsam ipsum
+                    architecto fugiat at!
+                    Debitis ipsam dolores quisquam iste consequuntur amet, aliquam quaerat cumque consectetur saepe
+                    dignissimos et, ipsa repellendus ullam molestias praesentium, dolorem aspernatur. Possimus odio
+                    incidunt molestiae magnam illum ducimus mollitia ab!</p>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae quasi ad quibusdam incidunt! Aut
+                    error nesciunt, tenetur sunt ipsum totam officiis nostrum quas quaerat sapiente ipsa, maxime, odio
+                    hic possimus!
+                    Aliquid quaerat deleniti nam sint blanditiis facilis, distinctio similique saepe voluptate minima
+                    eligendi! Pariatur quod dolorem quo eaque voluptate, laborum ipsam rerum distinctio beatae
+                    repudiandae architecto minima voluptatum at nam.</p>
+            </div>
+        </div>
+        <div class="latest">
+            <h2>Latest</h2>
+            <div class="latest-container">
+                {% for x in posts %}
+                <a href="{% url 'readon' x.id %}" class="latest-row">
+                    <div class="latest-img">
+                        <img src="media/{{x.image}}" alt="">
+                        
+                    </div>
+                    <div class="latest-title">
+                        <p>{{x.title}}</p>
+                        <p>{{x.date}}</p>
+                    </div>
+                </a>
+                {% endfor %}
+
+
+
+            </div>
+        </div>
+    </section>
+{% endblock %}
+    <div class="events fine-edge">
+        <h2>Live from Thori</h2>
+        <div class="event-container">
+            <video src=""></video>
+        </div>
+        <div class="live-container"></div>
+    </div>
+    <footer class="footer fine-edge">
+        <a href="" class="brand">GALAXY</a>
+    </footer>
+    <script>
+        var date = Date()
+        var time = document.querySelector(".time")
+        time.innerHTML = date.toLocaleString()
+
+        var header = document.querySelector(".header");
+
+        function show_nav() {
+            header.classList.toggle("show-nav")
+        }
+        function check_scroll(scl) {
+            if (scrollY > 35) {
+                header.classList.add("fixed")
+            }
+            else {
+                header.classList.remove("fixed")
+            }
+            if (scl - currentpos > 1.5 && scrollY > 70) {
+                header.classList.add("header-hide")
+            }
+            else if (scl - currentpos < -1.5) {
+                header.classList.remove("header-hide")
+            }
+        }
+
+        var currentpos = 0;
+        window.addEventListener("scroll", () => {
+            check_scroll(window.scrollY)
+            currentpos = window.scrollY
+        })
+
+
+    </script>
+</body>
+
+</html>
